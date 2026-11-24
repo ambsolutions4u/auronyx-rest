@@ -1,17 +1,28 @@
 ---
 import { SITE, CATEGORIES } from '../site.config.mjs';
+import Logo from './Logo.astro';
+import NightSky from './NightSky.astro';
 const year = new Date().getFullYear();
 const parentUrl = (SITE.parentCompanyUrl || '').trim();
 ---
 <footer class="site-footer">
+  <NightSky density={45} seed={21} />
+  <div class="container footer-cta" data-reveal>
+    <div>
+      <p class="eyebrow eyebrow-light">Sleep a little better</p>
+      <p class="footer-cta-title">Start with the one change most side sleepers feel first.</p>
+    </div>
+    <a class="btn btn-glow" href="/guides/how-to-choose-a-pillow-for-side-sleeping/">Read the pillow guide</a>
+  </div>
   <div class="container footer-grid">
     <div>
-      <p class="footer-brand">{SITE.name}</p>
-      <p class="muted">{SITE.tagline}</p>
+      <a href="/" class="brand brand-light" aria-label={`${SITE.name} home`}><Logo size={40} /><span class="brand-name">{SITE.name}</span></a>
+      <p class="footer-tagline">{SITE.tagline}</p>
       <p class="small">
         {SITE.name} is a property of{' '}
         {parentUrl ? <a href={parentUrl} rel="noopener">{SITE.parentCompany}</a> : <strong>{SITE.parentCompany}</strong>}.
       </p>
+      <p class="small"><a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></p>
     </div>
     <div>
       <p class="footer-heading">Guides</p>

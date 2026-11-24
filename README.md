@@ -18,6 +18,7 @@ Auronyx Rest is a property of **AMB Solutions 4 U**.
 - Affiliate buttons that show **"Link coming soon"** until you add your links
 - SEO basics built in: page titles and descriptions, canonical URLs, Open Graph social tags, `sitemap-index.xml`, `robots.txt`, structured data (JSON-LD)
 - Optional, privacy-friendly Cloudflare Web Analytics (off until you add a token)
+- "Aurora Night" design: animated starry hero, aurora gradients, self-hosted Fraunces + Inter fonts (no external font CDN), scroll animations that respect reduced-motion settings
 - No database, no paid services, no tracking cookies
 
 ## Project structure
@@ -40,8 +41,8 @@ auronyx_rest/
 │   ├── components/             ← header, footer, disclosure box, cards…
 │   ├── layouts/                ← page templates (SEO tags live in BaseLayout.astro)
 │   ├── pages/                  ← one file per page (about.astro, contact.astro, …)
-│   ├── plugins/                ← turns affiliate placeholders into buttons
-│   └── styles/global.css       ← colors, fonts and layout
+│   ├── plugins/                ← affiliate buttons + FAQ accordions for articles
+│   └── styles/global.css       ← colors, fonts, animations and layout ("Aurora Night" theme)
 ├── README.md
 └── DEPLOY.md
 ```
@@ -92,6 +93,24 @@ npm run preview
 ```
 
 The finished site is written to the `dist` folder.
+
+### Updating from a previous version (Windows)
+
+If you received an update ZIP (for example `auronyx_rest_design_update.zip`):
+
+1. Stop the local preview if it's running (`Ctrl + C` in Command Prompt).
+2. Unzip the update. It contains an `auronyx_rest` folder with only the changed files.
+3. Copy the **contents** of that `auronyx_rest` folder over your project at `C:\sites\auronyx_rest`, and choose **Replace the files in the destination** when Windows asks. Your other files (articles, affiliate links, settings you didn't change) are left alone.
+   - If you had already edited a file that the update replaces (for example `src/styles/global.css`), copy your own version somewhere safe first so you can re-apply your changes.
+4. Install any new dependencies, then start the preview:
+
+   ```bat
+   cd C:\sites\auronyx_rest
+   npm install
+   npm run dev
+   ```
+
+5. Open <http://localhost:4321> to check it, then commit and push to GitHub as usual (see DEPLOY.md, "Updating your site").
 
 ---
 

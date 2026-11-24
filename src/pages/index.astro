@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import NightSky from '../components/NightSky.astro';
+import CategoryIcon from '../components/CategoryIcon.astro';
+import Wave from '../components/Wave.astro';
 import { getCollection } from 'astro:content';
 import { SITE, CATEGORIES } from '../site.config.mjs';
 
@@ -30,53 +33,64 @@ const jsonLd = [
   },
 ];
 
-const catIcons: Record<string, string> = {
-  pillows: 'M4 9c0-2 1.5-3 4-3h8c2.5 0 4 1 4 3v6c0 2-1.5 3-4 3H8c-2.5 0-4-1-4-3z',
-  'mattresses-toppers': 'M3 10h18v6H3zM3 16v2M21 16v2M5 10V8h14v2',
-  'sleep-guides': 'M15 4a7 7 0 1 0 5 11.5A6 6 0 0 1 15 4z',
-};
+const trust = [
+  { icon: 'research', title: 'Research-based', text: 'We study materials, designs, manufacturer specs and recurring buyer feedback — and we never claim hands-on testing we haven\'t done.' },
+  { icon: 'shield', title: 'No medical hype', text: 'Plain-English comfort guidance only. We don\'t promise to fix pain or treat any condition.' },
+  { icon: 'heart', title: 'Side-sleeper focused', text: 'Every guide is written around the shoulder gap, pressure points and alignment side sleepers care about.' },
+  { icon: 'refresh', title: 'Kept up to date', text: 'Guides are reviewed and updated as products, materials and information change.' },
+];
 ---
 <BaseLayout description={SITE.description} jsonLd={jsonLd}>
   <section class="hero">
+    <NightSky moon density={90} seed={3} />
     <div class="container hero-grid">
-      <div>
-        <p class="eyebrow">Comfort guides for side sleepers</p>
-        <h1>{SITE.tagline}</h1>
-        <p class="lead">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow-light hero-anim" style="--d:0">Comfort guides for side sleepers</p>
+        <h1 class="hero-title hero-anim" style="--d:1">{SITE.tagline}</h1>
+        <p class="lead lead-light hero-anim" style="--d:2">
           {SITE.name} helps side sleepers build a more comfortable sleep setup — the right pillow height, a mattress
           surface that suits your shoulders and hips, and a bedroom that feels calm. Clear, research-based guides.
           No hype, no medical promises.
         </p>
-        <div class="cta-row">
-          {pillar && <a class="btn btn-primary" href={`/guides/${pillar.id}/`}>Start with the pillow guide</a>}
-          <a class="btn btn-ghost" href="/sleep-guides/">Browse all guides</a>
+        <div class="cta-row hero-anim" style="--d:3">
+          {pillar && <a class="btn btn-glow btn-lg" href={`/guides/${pillar.id}/`}>Start with the pillow guide <span class="arrow" aria-hidden="true">→</span></a>}
+          <a class="btn btn-outline-light btn-lg" href="/sleep-guides/">Browse all guides</a>
         </div>
+        <ul class="hero-badges hero-anim" style="--d:4">
+          <li>✦ Research-based</li><li>✦ No medical claims</li><li>✦ Clear affiliate disclosure</li>
+        </ul>
       </div>
       <div class="hero-art" aria-hidden="true">
-        <svg viewBox="0 0 400 300" role="img">
-          <defs>
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#26355e" /><stop offset="1" stop-color="#3d5288" />
-            </linearGradient>
-          </defs>
-          <rect width="400" height="300" rx="28" fill="url(#sky)" />
-          <path d="M300 48a40 40 0 1 0 28 66 34 34 0 0 1-28-66z" fill="#f3e3c3" />
-          <g fill="#f3e3c3" opacity=".75"><circle cx="70" cy="60" r="2" /><circle cx="130" cy="38" r="1.5" /><circle cx="210" cy="72" r="2" /><circle cx="250" cy="30" r="1.5" /><circle cx="360" cy="150" r="1.5" /></g>
-          <rect x="40" y="200" width="320" height="48" rx="14" fill="#e9e1d4" />
-          <rect x="40" y="236" width="320" height="22" rx="8" fill="#c9bba5" />
-          <rect x="58" y="168" width="110" height="42" rx="20" fill="#fbf8f3" />
-          <path d="M150 200c30-30 90-34 140-22 30 7 52 14 70 22v8H150z" fill="#9fb3d9" />
-          <circle cx="138" cy="170" r="20" fill="#e6c9a8" />
-          <path d="M120 162c4-14 30-16 36-2-10-4-24-4-36 2z" fill="#4a3a2e" />
-        </svg>
+        <div class="hero-card">
+          <svg viewBox="0 0 400 300">
+            <defs>
+              <linearGradient id="bedTop" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6f1ff" /><stop offset="1" stop-color="#e3dcff" /></linearGradient>
+              <linearGradient id="blanket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b7bff" /><stop offset="1" stop-color="#2ee6c5" /></linearGradient>
+              <linearGradient id="base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4b3aa8" /><stop offset="1" stop-color="#2a1b6e" /></linearGradient>
+            </defs>
+            <ellipse cx="200" cy="268" rx="170" ry="14" fill="#000" opacity=".25" />
+            <rect x="34" y="186" width="332" height="56" rx="18" fill="url(#bedTop)" />
+            <rect x="34" y="230" width="332" height="30" rx="12" fill="url(#base)" />
+            <rect x="52" y="150" width="120" height="46" rx="22" fill="#fff" />
+            <path d="M60 160c20-6 80-6 104 0" stroke="#d9d1ff" stroke-width="3" fill="none" stroke-linecap="round" />
+            <path d="M150 192c32-36 98-40 150-26 34 9 54 18 66 26v14H150z" fill="url(#blanket)" />
+            <circle cx="140" cy="160" r="21" fill="#f0c9a2" />
+            <path d="M120 154c4-16 34-18 40-2-11-5-27-5-40 2z" fill="#3b2a24" />
+            <text x="210" y="120" fill="#fff" opacity=".85" font-family="Fraunces Variable, serif" font-size="30" font-style="italic">z</text>
+            <text x="236" y="96" fill="#fff" opacity=".6" font-family="Fraunces Variable, serif" font-size="22" font-style="italic">z</text>
+            <text x="256" y="78" fill="#fff" opacity=".4" font-family="Fraunces Variable, serif" font-size="16" font-style="italic">z</text>
+          </svg>
+        </div>
       </div>
     </div>
+    <Wave fill="var(--bg)" />
   </section>
 
-  <section class="container section mission">
-    <div class="narrow">
+  <section class="container section mission" data-reveal>
+    <div class="mission-inner">
+      <p class="eyebrow">Why we exist</p>
       <h2>Our mission</h2>
-      <p>
+      <p class="lead">
         We believe a more comfortable night often starts with small, well-chosen changes. Our mission is to help side
         sleepers understand <em>why</em> a product might feel better — so you can choose with confidence, spend wisely,
         and skip the guesswork. Every guide is written in plain English and based on careful research of materials,
@@ -85,9 +99,23 @@ const catIcons: Record<string, string> = {
     </div>
   </section>
 
-  <section class="section soft-band">
-    <div class="container two-col">
-      <div>
+  <section class="container section-sm">
+    <ul class="trust-strip">
+      {trust.map((t, i) => (
+        <li class="trust-item" data-reveal style={`--i:${i}`}>
+          <span class="trust-icon"><CategoryIcon name={t.icon} size={28} /></span>
+          <h3>{t.title}</h3>
+          <p>{t.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="soft-band">
+    <Wave fill="var(--band)" className="wave-top" />
+    <div class="container two-col section-pad">
+      <div data-reveal>
+        <p class="eyebrow">The side-sleeper difference</p>
         <h2>Why side sleepers need a different setup</h2>
         <p>
           When you sleep on your side, your shoulder creates a gap between your head and the mattress. A pillow that
@@ -96,40 +124,65 @@ const catIcons: Record<string, string> = {
         </p>
         <p>The comfort goal is simple: keep your head, neck and spine in a relaxed, roughly straight line. That usually comes down to three things:</p>
       </div>
-      <ul class="check-list">
-        <li><strong>Pillow loft that fills the gap</strong> — often medium-high to high, depending on shoulder width.</li>
-        <li><strong>A surface with some give</strong> — enough cushioning for shoulders and hips to sink in slightly.</li>
-        <li><strong>A calm sleep space</strong> — darkness, a comfortable temperature and quiet support relaxation.</li>
-      </ul>
+      <ol class="step-list">
+        <li data-reveal style="--i:0"><span class="step-num">1</span><div><strong>Pillow loft that fills the gap</strong> — often medium-high to high, depending on shoulder width.</div></li>
+        <li data-reveal style="--i:1"><span class="step-num">2</span><div><strong>A surface with some give</strong> — enough cushioning for shoulders and hips to sink in slightly.</div></li>
+        <li data-reveal style="--i:2"><span class="step-num">3</span><div><strong>A calm sleep space</strong> — darkness, a comfortable temperature and quiet support relaxation.</div></li>
+      </ol>
     </div>
+    <Wave fill="var(--bg)" />
   </section>
 
   <section class="container section">
-    <h2 class="section-title">Explore by category</h2>
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Find your fit</p>
+      <h2 class="section-title">Explore by category</h2>
+    </div>
     <div class="grid cards-3">
-      {Object.entries(CATEGORIES).map(([key, c]) => (
-        <a class="card category-card" href={c.href}>
-          <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d={catIcons[key]} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
+      {Object.entries(CATEGORIES).map(([key, c], i) => (
+        <a class={`card category-card cat-${key}`} href={c.href} data-reveal style={`--i:${i}`}>
+          <span class="cat-icon-wrap"><CategoryIcon name={key} size={40} /></span>
           <h3>{c.label}</h3>
           <p class="muted">{c.description}</p>
-          <span class="small read-more">View guides →</span>
+          <span class="small read-more">View guides <span class="arrow" aria-hidden="true">→</span></span>
         </a>
       ))}
     </div>
   </section>
 
+  {pillar && (
+    <section class="container section">
+      <div class="spotlight" data-reveal>
+        <NightSky density={40} seed={11} />
+        <div class="spotlight-thumb" aria-hidden="true">
+          <CategoryIcon name="pillows" size={96} />
+        </div>
+        <div class="spotlight-copy">
+          <p class="eyebrow eyebrow-light">Featured guide · {pillar.data.readingTime}</p>
+          <h2>{pillar.data.title}</h2>
+          <p>{pillar.data.description}</p>
+          <a class="btn btn-glow" href={`/guides/${pillar.id}/`}>Read the guide <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="container section">
-    <h2 class="section-title">Featured guides</h2>
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Start here</p>
+      <h2 class="section-title">Featured guides</h2>
+    </div>
     <div class="grid cards-3">{featured.map((entry) => <ArticleCard entry={entry} />)}</div>
   </section>
 
   <section class="container section">
-    <div class="cta-panel">
-      <div>
+    <div class="cta-panel" data-reveal>
+      <NightSky density={30} seed={5} />
+      <div class="cta-copy">
         <h2>Not sure where to start?</h2>
         <p>Most side sleepers notice the biggest difference from the right pillow. Our step-by-step guide walks you through loft, firmness and materials in about ten minutes.</p>
       </div>
-      {pillar && <a class="btn btn-light" href={`/guides/${pillar.id}/`}>Read: How to choose a pillow</a>}
+      {pillar && <a class="btn btn-glow btn-lg" href={`/guides/${pillar.id}/`}>Read: How to choose a pillow</a>}
     </div>
     <p class="small muted center">
       Our guides are research-based and for general information only — not medical advice.

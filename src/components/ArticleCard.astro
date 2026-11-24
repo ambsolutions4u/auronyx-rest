@@ -1,11 +1,18 @@
 ---
 import { CATEGORIES } from '../site.config.mjs';
+import CategoryIcon from './CategoryIcon.astro';
 const { entry } = Astro.props;
 const cat = CATEGORIES[entry.data.category as keyof typeof CATEGORIES];
 ---
-<article class="card article-card">
-  <p class="eyebrow">{cat.label}</p>
-  <h3><a href={`/guides/${entry.id}/`}>{entry.data.title}</a></h3>
-  <p class="muted">{entry.data.description}</p>
-  <p class="small read-more" aria-hidden="true">{entry.data.readingTime ? `${entry.data.readingTime} · ` : ''}Read guide →</p>
+<article class="card article-card" data-reveal>
+  <div class={`thumb thumb-${entry.data.category}`} aria-hidden="true">
+    <span class="thumb-stars"></span>
+    <CategoryIcon name={entry.data.category} size={52} />
+  </div>
+  <div class="card-body">
+    <p class="chip">{cat.label}</p>
+    <h3><a href={`/guides/${entry.id}/`}>{entry.data.title}</a></h3>
+    <p class="muted">{entry.data.description}</p>
+    <p class="small read-more" aria-hidden="true">{entry.data.readingTime ? `${entry.data.readingTime} · ` : ''}Read guide <span class="arrow">→</span></p>
+  </div>
 </article>

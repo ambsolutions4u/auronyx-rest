@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { SITE } from './src/site.config.mjs';
 import { rehypeLinks } from './src/plugins/rehype-links.mjs';
+import { rehypeFaq } from './src/plugins/rehype-faq.mjs';
 
 // https://docs.astro.build/en/reference/configuration-reference/
 export default defineConfig({
@@ -16,6 +17,6 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [rehypeLinks],
+    rehypePlugins: [rehypeLinks, rehypeFaq],
   },
 });

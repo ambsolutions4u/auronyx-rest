@@ -4,6 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import DisclosureBox from '../../components/DisclosureBox.astro';
 import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import NightSky from '../../components/NightSky.astro';
+import CategoryIcon from '../../components/CategoryIcon.astro';
+import Wave from '../../components/Wave.astro';
 import { SITE, CATEGORIES } from '../../site.config.mjs';
 
 export async function getStaticPaths() {
@@ -61,10 +64,13 @@ const jsonLd = [
   jsonLd={jsonLd}
   publishedTime={pubDate.toISOString()}
   modifiedTime={updated.toISOString()}
+  progress
 >
   <article class="article">
-    <header class="article-header">
-      <div class="container narrow">
+    <header class={`article-header band-${category}`}>
+      <NightSky density={55} seed={entry.id.length} />
+      <div class="container narrow article-header-inner">
+        <span class="article-icon" aria-hidden="true"><CategoryIcon name={category} size={34} /></span>
         <nav aria-label="Breadcrumb" class="breadcrumb small">
           <a href="/">Home</a> <span aria-hidden="true">/</span> <a href={cat.href}>{cat.label}</a>
         </nav>
@@ -77,6 +83,7 @@ const jsonLd = [
           {readingTime && <> · {readingTime}</>}
         </p>
       </div>
+      <Wave fill="var(--bg)" />
     </header>
     <div class="container narrow">
       {hasAffiliateLinks && <DisclosureBox />}
@@ -87,6 +94,7 @@ const jsonLd = [
     </div>
   </article>
   <section class="container section">
+    <p class="eyebrow">Keep reading</p>
     <h2 class="section-title">Related guides</h2>
     <div class="grid cards-3">{related.map((e) => <ArticleCard entry={e} />)}</div>
   </section>

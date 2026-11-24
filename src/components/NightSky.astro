@@ -1,0 +1,37 @@
+---
+/**
+ * Decorative night-sky background: twinkling stars + soft aurora ribbons + optional moon.
+ * Purely CSS (stars are generated at build time as box-shadows). Hidden from screen readers.
+ */
+interface Props { moon?: boolean; density?: number; seed?: number; }
+const { moon = false, density = 60, seed = 7 } = Astro.props;
+
+// Small deterministic PRNG so builds are reproducible.
+let s = seed;
+const rand = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+const layer = (n: number, alpha: number) =>
+  Array.from({ length: n }, () => `${Math.round(rand() * 2200)}px ${Math.round(rand() * 1000)}px rgba(255,255,255,${(alpha * (0.5 + rand() / 2)).toFixed(2)})`).join(',');
+const small = layer(density, 0.9);
+const medium = layer(Math.round(density / 3), 1);
+---
+<div class="night-sky" aria-hidden="true">
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
+  <div class="stars stars-sm" style={`box-shadow:${small}`}></div>
+  <div class="stars stars-md" style={`box-shadow:${medium}`}></div>
+  {moon && (
+    <div class="moon-wrap">
+      <div class="moon-glow"></div>
+      <svg class="moon" viewBox="0 0 120 120">
+        <defs>
+          <radialGradient id="moonFill" cx="35%" cy="35%" r="75%">
+            <stop offset="0" stop-color="#fff6d8" /><stop offset=".6" stop-color="#ffd98a" /><stop offset="1" stop-color="#f1a93d" />
+          </radialGradient>
+        </defs>
+        <path d="M78 10a52 52 0 1 0 32 82A44 44 0 0 1 78 10z" fill="url(#moonFill)" />
+        <circle cx="45" cy="70" r="5" fill="#e9a53c" opacity=".35" /><circle cx="60" cy="90" r="3.5" fill="#e9a53c" opacity=".3" /><circle cx="35" cy="48" r="3" fill="#e9a53c" opacity=".3" />
+      </svg>
+    </div>
+  )}
+</div>

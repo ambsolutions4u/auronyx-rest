@@ -1,15 +1,19 @@
 ---
+import NightSky from '../components/NightSky.astro';
+import Wave from '../components/Wave.astro';
 import BaseLayout from './BaseLayout.astro';
 interface Props { title: string; description: string; eyebrow?: string; lastUpdated?: string; noindex?: boolean; }
 const { title, description, eyebrow, lastUpdated, noindex } = Astro.props;
 ---
 <BaseLayout title={title} description={description} noindex={noindex}>
   <section class="page-hero">
-    <div class="container narrow">
+    <NightSky density={50} seed={9} />
+    <div class="container narrow page-hero-inner">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
       {lastUpdated && <p class="small muted">Last updated: {lastUpdated}</p>}
     </div>
+    <Wave fill="var(--bg)" />
   </section>
   <div class="container narrow section-sm">
     <div class="prose"><slot /></div>

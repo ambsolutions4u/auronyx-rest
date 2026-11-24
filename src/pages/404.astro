@@ -1,10 +1,13 @@
 ---
+import NightSky from '../components/NightSky.astro';
+import Wave from '../components/Wave.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CATEGORIES } from '../site.config.mjs';
 ---
 <BaseLayout title="Page not found" description="Sorry, we couldn't find that page." noindex>
   <section class="page-hero center">
-    <div class="container narrow">
+    <NightSky density={50} seed={9} />
+    <div class="container narrow page-hero-inner">
       <p class="eyebrow">404</p>
       <h1>This page drifted off to sleep</h1>
       <p class="lead">We couldn't find the page you were looking for. It may have moved, or the link may be mistyped.</p>
@@ -13,5 +16,6 @@ import { CATEGORIES } from '../site.config.mjs';
         {Object.values(CATEGORIES).map((c) => <a class="btn btn-ghost" href={c.href}>{c.label}</a>)}
       </div>
     </div>
+    <Wave fill="var(--bg)" />
   </section>
 </BaseLayout>
