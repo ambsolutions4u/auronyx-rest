@@ -1,0 +1,38 @@
+---
+import { SITE, CATEGORIES } from '../site.config.mjs';
+const year = new Date().getFullYear();
+const parentUrl = (SITE.parentCompanyUrl || '').trim();
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand">{SITE.name}</p>
+      <p class="muted">{SITE.tagline}</p>
+      <p class="small">
+        {SITE.name} is a property of{' '}
+        {parentUrl ? <a href={parentUrl} rel="noopener">{SITE.parentCompany}</a> : <strong>{SITE.parentCompany}</strong>}.
+      </p>
+    </div>
+    <div>
+      <p class="footer-heading">Guides</p>
+      <ul>
+        {Object.values(CATEGORIES).map((c) => <li><a href={c.href}>{c.label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <p class="footer-heading">Site</p>
+      <ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/affiliate-disclosure/">Affiliate Disclosure</a></li>
+        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+        <li><a href="/medical-disclaimer/">Medical Disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom small">
+    <p>{SITE.footerDisclosure} <a href="/affiliate-disclosure/">Learn more</a>.</p>
+    <p>Content on this site is for general information only and is not medical advice.</p>
+    <p>© {year} {SITE.name} · {SITE.parentCompany}. All rights reserved.</p>
+  </div>
+</footer>

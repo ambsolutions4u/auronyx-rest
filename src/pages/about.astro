@@ -1,0 +1,52 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../site.config.mjs';
+const parentUrl = (SITE.parentCompanyUrl || '').trim();
+---
+<PageLayout title="About" eyebrow={`About ${SITE.name}`} description={`Who runs ${SITE.name}, why we focus on side sleepers, and how our research-based product recommendations are made.`}>
+  <h2>Who we are</h2>
+  <p>
+    {SITE.name} is an independent guide for side sleepers who want a more comfortable sleep setup. The site is run by
+    the {SITE.author} and is a property of{' '}
+    {parentUrl ? <a href={parentUrl}>{SITE.parentCompany}</a> : <strong>{SITE.parentCompany}</strong>}, a small
+    company that publishes focused, helpful websites on everyday topics.
+  </p>
+
+  <h2>Who this site helps</h2>
+  <p>
+    If you spend most of the night on your side and wake up wishing your pillow, mattress or bedroom felt a little
+    better, this site is for you. We explain the "why" behind comfort — loft, firmness, materials and sleep
+    environment — so you can make your own informed choices.
+  </p>
+
+  <h2>How we research recommendations</h2>
+  <p>We want to be completely transparent: <strong>our guides are research-based, not hands-on product tests.</strong> We do not currently run a testing lab, and we will never claim to have personally tested a product unless we actually have. To build our guides we:</p>
+  <ul>
+    <li>Study how different materials and designs (memory foam, latex, shredded foam, down and fiber fills, contoured shapes) generally behave.</li>
+    <li>Review manufacturer specifications, care instructions, trial periods and warranty terms.</li>
+    <li>Read widely available buyer feedback to spot recurring themes — both positive and negative.</li>
+    <li>Refer to reputable, general sleep-hygiene guidance from established health organizations, without making medical claims.</li>
+    <li>Update guides when products, materials or information change.</li>
+  </ul>
+  <p>
+    Product recommendations focus on <em>who a type of product may suit</em> and its potential drawbacks. Comfort is
+    personal, so we always encourage checking return policies and sleep trials before you buy.
+  </p>
+
+  <h2>How we make money</h2>
+  <p>
+    Some links on this site are affiliate links. If you buy through them, we may earn a commission at no extra cost to
+    you. This helps keep the site free. Commissions never change what we write or which product types we discuss.
+    Read our full <a href="/affiliate-disclosure/">Affiliate Disclosure</a>.
+  </p>
+
+  <h2>What we don't do</h2>
+  <p>
+    We are not doctors, physical therapists or sleep specialists, and we don't give medical advice. Nothing on this
+    site is intended to diagnose, treat or cure any condition. If you have ongoing pain or sleep problems, please talk
+    with a healthcare professional. See our <a href="/medical-disclaimer/">Medical Disclaimer</a>.
+  </p>
+
+  <h2>Get in touch</h2>
+  <p>Questions, corrections or suggestions? We'd love to hear from you — visit our <a href="/contact/">Contact page</a>.</p>
+</PageLayout>

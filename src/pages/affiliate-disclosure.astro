@@ -1,0 +1,42 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../site.config.mjs';
+---
+<PageLayout title="Affiliate Disclosure" eyebrow="Transparency" lastUpdated={SITE.legalLastUpdated} description={`How ${SITE.name} earns money through affiliate links, and how we keep our side-sleeper comfort guides honest and independent.`}>
+  <p class="callout"><strong>In short:</strong> {SITE.affiliateDisclosureShort}</p>
+
+  <h2>What affiliate links are</h2>
+  <p>
+    {SITE.name} participates in affiliate programs. This means some links on our pages are special tracking links. If
+    you click one and make a purchase, the retailer or brand may pay us a small commission. The price you pay is the
+    same whether you use our link or not.
+  </p>
+
+  <h2>Which programs we may use</h2>
+  <p>
+    We may participate in programs run by individual brands and by affiliate networks or marketplaces. If we
+    participate in the Amazon Services LLC Associates Program, the following applies: <em>As an Amazon Associate, we
+    earn from qualifying purchases.</em>
+  </p>
+
+  <h2>How affiliate links are marked</h2>
+  <ul>
+    <li>Every article that contains affiliate links displays a disclosure box near the top of the page.</li>
+    <li>Product buttons open in a new tab and are tagged for search engines as sponsored links.</li>
+    <li>This disclosure is linked from the footer of every page.</li>
+  </ul>
+
+  <h2>Our editorial independence</h2>
+  <p>
+    Commissions never decide what we write. Our guides are research-based: we compare product types, materials and
+    designs and describe who they may suit and what their drawbacks are. We do not accept payment for positive
+    coverage, and we do not claim to have tested products we have not tested. If we ever publish sponsored content, it
+    will be clearly labeled.
+  </p>
+
+  <h2>Prices and availability</h2>
+  <p>Prices, promotions and availability change often and are set by retailers. Always confirm the final details on the retailer's site before buying.</p>
+
+  <h2>Questions</h2>
+  <p>If you have any questions about this disclosure, email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+</PageLayout>

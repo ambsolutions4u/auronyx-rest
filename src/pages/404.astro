@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CATEGORIES } from '../site.config.mjs';
+---
+<BaseLayout title="Page not found" description="Sorry, we couldn't find that page." noindex>
+  <section class="page-hero center">
+    <div class="container narrow">
+      <p class="eyebrow">404</p>
+      <h1>This page drifted off to sleep</h1>
+      <p class="lead">We couldn't find the page you were looking for. It may have moved, or the link may be mistyped.</p>
+      <div class="cta-row center-row">
+        <a class="btn btn-primary" href="/">Back to home</a>
+        {Object.values(CATEGORIES).map((c) => <a class="btn btn-ghost" href={c.href}>{c.label}</a>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

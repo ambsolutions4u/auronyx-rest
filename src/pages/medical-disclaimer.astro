@@ -1,0 +1,34 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../site.config.mjs';
+---
+<PageLayout title="Medical Disclaimer" eyebrow="Important" lastUpdated={SITE.legalLastUpdated} description={`${SITE.name} content is for general information only. It is not medical advice and is not intended to diagnose, treat or cure any condition.`}>
+  <h2>General information only</h2>
+  <p>
+    The content on {SITE.name} — including articles, buying guides, comparisons and product mentions — is provided for
+    general informational purposes about sleep comfort and bedroom products. It is not medical advice and is not a
+    substitute for advice from a doctor, physical therapist, sleep specialist or other qualified healthcare
+    professional.
+  </p>
+
+  <h2>No diagnosis or treatment</h2>
+  <p>
+    We do not diagnose, treat, cure or prevent any disease or condition. No pillow, mattress, topper or other product
+    mentioned on this site is claimed to treat pain, sleep apnea, insomnia, snoring or any other health issue.
+  </p>
+
+  <h2>When to talk to a professional</h2>
+  <p>
+    If you have persistent neck, shoulder, back or hip pain, ongoing trouble falling or staying asleep, loud snoring,
+    pauses in breathing during sleep, excessive daytime sleepiness, or any other health concern, please consult a
+    qualified healthcare professional. Never ignore professional advice or delay seeking it because of something you
+    read here.
+  </p>
+
+  <h2>Individual results vary</h2>
+  <p>Comfort is personal. A product that feels great to one person may not suit another. Body size, sleep position, preferences and health all play a role.</p>
+
+  <h2>No professional relationship</h2>
+  <p>Reading this site or contacting us does not create a doctor–patient or any other professional relationship.</p>
+  <p>Questions? Email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+</PageLayout>

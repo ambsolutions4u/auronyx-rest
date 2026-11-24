@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE, CATEGORIES } from '../site.config.mjs';
+
+const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+const featured = guides.filter((g) => g.data.featured).slice(0, 3);
+const pillar = guides.find((g) => g.id === 'how-to-choose-a-pillow-for-side-sleeping');
+const parentUrl = (SITE.parentCompanyUrl || '').trim();
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: new URL('/favicon.svg', SITE.url).href,
+    email: SITE.contactEmail,
+    parentOrganization: { '@type': 'Organization', name: SITE.parentCompany, ...(parentUrl ? { url: parentUrl } : {}) },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    inLanguage: SITE.lang,
+    publisher: { '@type': 'Organization', name: SITE.name },
+  },
+];
+
+const catIcons: Record<string, string> = {
+  pillows: 'M4 9c0-2 1.5-3 4-3h8c2.5 0 4 1 4 3v6c0 2-1.5 3-4 3H8c-2.5 0-4-1-4-3z',
+  'mattresses-toppers': 'M3 10h18v6H3zM3 16v2M21 16v2M5 10V8h14v2',
+  'sleep-guides': 'M15 4a7 7 0 1 0 5 11.5A6 6 0 0 1 15 4z',
+};
+---
+<BaseLayout description={SITE.description} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Comfort guides for side sleepers</p>
+        <h1>{SITE.tagline}</h1>
+        <p class="lead">
+          {SITE.name} helps side sleepers build a more comfortable sleep setup — the right pillow height, a mattress
+          surface that suits your shoulders and hips, and a bedroom that feels calm. Clear, research-based guides.
+          No hype, no medical promises.
+        </p>
+        <div class="cta-row">
+          {pillar && <a class="btn btn-primary" href={`/guides/${pillar.id}/`}>Start with the pillow guide</a>}
+          <a class="btn btn-ghost" href="/sleep-guides/">Browse all guides</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 300" role="img">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#26355e" /><stop offset="1" stop-color="#3d5288" />
+            </linearGradient>
+          </defs>
+          <rect width="400" height="300" rx="28" fill="url(#sky)" />
+          <path d="M300 48a40 40 0 1 0 28 66 34 34 0 0 1-28-66z" fill="#f3e3c3" />
+          <g fill="#f3e3c3" opacity=".75"><circle cx="70" cy="60" r="2" /><circle cx="130" cy="38" r="1.5" /><circle cx="210" cy="72" r="2" /><circle cx="250" cy="30" r="1.5" /><circle cx="360" cy="150" r="1.5" /></g>
+          <rect x="40" y="200" width="320" height="48" rx="14" fill="#e9e1d4" />
+          <rect x="40" y="236" width="320" height="22" rx="8" fill="#c9bba5" />
+          <rect x="58" y="168" width="110" height="42" rx="20" fill="#fbf8f3" />
+          <path d="M150 200c30-30 90-34 140-22 30 7 52 14 70 22v8H150z" fill="#9fb3d9" />
+          <circle cx="138" cy="170" r="20" fill="#e6c9a8" />
+          <path d="M120 162c4-14 30-16 36-2-10-4-24-4-36 2z" fill="#4a3a2e" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section mission">
+    <div class="narrow">
+      <h2>Our mission</h2>
+      <p>
+        We believe a more comfortable night often starts with small, well-chosen changes. Our mission is to help side
+        sleepers understand <em>why</em> a product might feel better — so you can choose with confidence, spend wisely,
+        and skip the guesswork. Every guide is written in plain English and based on careful research of materials,
+        designs and manufacturer information.
+      </p>
+    </div>
+  </section>
+
+  <section class="section soft-band">
+    <div class="container two-col">
+      <div>
+        <h2>Why side sleepers need a different setup</h2>
+        <p>
+          When you sleep on your side, your shoulder creates a gap between your head and the mattress. A pillow that
+          is too flat or too tall can leave your neck bent at an awkward angle, and a mattress that is too firm can
+          feel like it pushes back at your shoulder and hip.
+        </p>
+        <p>The comfort goal is simple: keep your head, neck and spine in a relaxed, roughly straight line. That usually comes down to three things:</p>
+      </div>
+      <ul class="check-list">
+        <li><strong>Pillow loft that fills the gap</strong> — often medium-high to high, depending on shoulder width.</li>
+        <li><strong>A surface with some give</strong> — enough cushioning for shoulders and hips to sink in slightly.</li>
+        <li><strong>A calm sleep space</strong> — darkness, a comfortable temperature and quiet support relaxation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="section-title">Explore by category</h2>
+    <div class="grid cards-3">
+      {Object.entries(CATEGORIES).map(([key, c]) => (
+        <a class="card category-card" href={c.href}>
+          <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d={catIcons[key]} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
+          <h3>{c.label}</h3>
+          <p class="muted">{c.description}</p>
+          <span class="small read-more">View guides →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="section-title">Featured guides</h2>
+    <div class="grid cards-3">{featured.map((entry) => <ArticleCard entry={entry} />)}</div>
+  </section>
+
+  <section class="container section">
+    <div class="cta-panel">
+      <div>
+        <h2>Not sure where to start?</h2>
+        <p>Most side sleepers notice the biggest difference from the right pillow. Our step-by-step guide walks you through loft, firmness and materials in about ten minutes.</p>
+      </div>
+      {pillar && <a class="btn btn-light" href={`/guides/${pillar.id}/`}>Read: How to choose a pillow</a>}
+    </div>
+    <p class="small muted center">
+      Our guides are research-based and for general information only — not medical advice.
+      Some links are affiliate links; see our <a href="/affiliate-disclosure/">affiliate disclosure</a>.
+    </p>
+  </section>
+</BaseLayout>

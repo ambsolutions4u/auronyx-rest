@@ -1,0 +1,68 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../site.config.mjs';
+---
+<PageLayout title="Privacy Policy" eyebrow="Legal" lastUpdated={SITE.legalLastUpdated} description={`How ${SITE.name} handles your information, including analytics, cookies, affiliate links and emails you send us.`}>
+  <p>
+    This Privacy Policy explains how {SITE.name} ("we", "us", "our"), a property of {SITE.parentCompany}, collects, uses
+    and protects information when you visit <a href={SITE.url}>{SITE.url.replace(/^https?:\/\//, '')}</a> (the "Site").
+    By using the Site, you agree to this policy.
+  </p>
+
+  <h2>1. Information we collect</h2>
+  <h3>Information you give us</h3>
+  <p>We do not have user accounts, comment sections or contact forms. If you email us, we receive your email address and whatever you include in your message. We use it only to reply and to keep a record of the conversation.</p>
+  <h3>Information collected automatically</h3>
+  <p>Like most websites, our hosting and security provider may automatically process technical information such as your IP address, browser type, device type, pages visited and the date and time of your visit. This is used to deliver the Site, keep it secure and understand overall usage.</p>
+
+  <h2>2. Analytics</h2>
+  <p>
+    We may use privacy-focused analytics, such as Cloudflare Web Analytics, to understand how many people visit the
+    Site and which pages are popular. Cloudflare Web Analytics is designed not to use cookies or local storage for
+    tracking and does not build profiles of individual visitors. We may change analytics providers in the future and
+    will update this policy if we do.
+  </p>
+
+  <h2>3. Cookies</h2>
+  <p>
+    The Site itself does not set advertising or tracking cookies. However, our hosting and security provider may use
+    strictly necessary cookies to protect the Site (for example, from bots). When you click an affiliate link and land
+    on a third-party retailer's website, that retailer or affiliate network may set cookies to track the referral and
+    attribute a commission. Those cookies are governed by the third party's own privacy policy. You can block or delete
+    cookies through your browser settings.
+  </p>
+
+  <h2>4. Affiliate links</h2>
+  <p>
+    Some links on the Site are affiliate links. When you click one, the retailer may learn that you came from our Site.
+    We do not receive your name, payment details or other personal information about your purchase — only aggregated
+    reports of clicks and commissions. See our <a href="/affiliate-disclosure/">Affiliate Disclosure</a>.
+  </p>
+
+  <h2>5. How we use information</h2>
+  <ul>
+    <li>To operate, maintain and secure the Site.</li>
+    <li>To understand which content is helpful so we can improve it.</li>
+    <li>To respond to your emails.</li>
+    <li>To comply with legal obligations.</li>
+  </ul>
+  <p>We do not sell your personal information.</p>
+
+  <h2>6. Third-party services</h2>
+  <p>We rely on third parties such as our hosting/CDN provider (Cloudflare), code hosting (GitHub), email provider and affiliate partners. Each has its own privacy practices. Links to external websites are not covered by this policy.</p>
+
+  <h2>7. Data retention and security</h2>
+  <p>We keep emails only as long as needed to respond and maintain records. We use reasonable measures to protect information, but no method of transmission over the internet is completely secure.</p>
+
+  <h2>8. Your choices and rights</h2>
+  <p>Depending on where you live (for example, in California or the EU/UK), you may have rights to access, correct or delete personal information we hold about you, or to object to certain processing. To make a request, email us at the address below.</p>
+
+  <h2>9. Children's privacy</h2>
+  <p>The Site is intended for adults and is not directed to children under 13. We do not knowingly collect personal information from children.</p>
+
+  <h2>10. Changes to this policy</h2>
+  <p>We may update this policy from time to time. The "Last updated" date at the top shows when it last changed.</p>
+
+  <h2>11. Contact</h2>
+  <p>Questions about privacy? Email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+</PageLayout>

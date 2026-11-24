@@ -1,0 +1,30 @@
+---
+import { SITE, NAV } from '../site.config.mjs';
+import Logo from './Logo.astro';
+const current = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label={`${SITE.name} home`}>
+      <Logo />
+      <span>{SITE.name}</span>
+    </a>
+    <details class="nav-toggle">
+      <summary aria-label="Open menu"><span class="burger" aria-hidden="true"></span><span class="sr-only">Menu</span></summary>
+      <nav aria-label="Main" class="nav-mobile">
+        <ul>
+          {NAV.map((item) => (
+            <li><a href={item.href} aria-current={current.startsWith(item.href) ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+    <nav aria-label="Main" class="nav-desktop">
+      <ul>
+        {NAV.map((item) => (
+          <li><a href={item.href} aria-current={current.startsWith(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,15 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../site.config.mjs';
+---
+<PageLayout title="Contact" eyebrow="Say hello" description={`Contact the ${SITE.name} team with questions, corrections, partnership enquiries or feedback about our side-sleeper comfort guides.`}>
+  <p>We read every message. Whether you've spotted an error, have a question about a guide, or want to discuss a partnership, email us and we'll do our best to reply within a few business days.</p>
+  <p><a class="btn btn-primary" href={`mailto:${SITE.contactEmail}?subject=${encodeURIComponent(`Hello ${SITE.name}`)}`}>Email {SITE.contactEmail}</a></p>
+  <h2>Before you write</h2>
+  <ul>
+    <li><strong>Product questions:</strong> we can explain how pillow and topper types generally compare, but we can't recommend products for medical conditions.</li>
+    <li><strong>Corrections:</strong> please include the page link and what needs fixing — we appreciate it.</li>
+    <li><strong>Brands &amp; partnerships:</strong> we only work with products relevant to side-sleeper comfort, and all sponsored relationships are disclosed.</li>
+  </ul>
+  <p class="small muted">We don't use a contact form, so your message goes straight from your email app to ours. See our <a href="/privacy-policy/">Privacy Policy</a> for how we handle emails.</p>
+</PageLayout>

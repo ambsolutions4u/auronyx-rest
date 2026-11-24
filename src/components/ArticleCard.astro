@@ -1,0 +1,11 @@
+---
+import { CATEGORIES } from '../site.config.mjs';
+const { entry } = Astro.props;
+const cat = CATEGORIES[entry.data.category as keyof typeof CATEGORIES];
+---
+<article class="card article-card">
+  <p class="eyebrow">{cat.label}</p>
+  <h3><a href={`/guides/${entry.id}/`}>{entry.data.title}</a></h3>
+  <p class="muted">{entry.data.description}</p>
+  <p class="small read-more" aria-hidden="true">{entry.data.readingTime ? `${entry.data.readingTime} · ` : ''}Read guide →</p>
+</article>

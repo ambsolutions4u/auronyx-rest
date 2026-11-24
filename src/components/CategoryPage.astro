@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from './ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, SITE } from '../site.config.mjs';
+
+interface Props { category: keyof typeof CATEGORIES; showAll?: boolean; }
+const { category, showAll = false } = Astro.props;
+const cat = CATEGORIES[category];
+const all = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+const inCat = all.filter((e) => e.data.category === category);
+const others = all.filter((e) => e.data.category !== category);
+---
+<BaseLayout title={cat.label} description={cat.description}>
+  <section class="page-hero">
+    <div class="container narrow">
+      <p class="eyebrow">Category</p>
+      <h1>{cat.label}</h1>
+      <p class="lead">{cat.description}</p>
+      <slot />
+    </div>
+  </section>
+  <section class="container section">
+    <h2 class="section-title">{cat.label} guides</h2>
+    {inCat.length ? (
+      <div class="grid cards-3">{inCat.map((entry) => <ArticleCard entry={entry} />)}</div>
+    ) : (
+      <p class="muted">New guides for this category are on the way.</p>
+    )}
+  </section>
+  {others.length > 0 && (
+    <section class="container section">
+      <h2 class="section-title">{showAll ? 'All other guides' : `More from ${SITE.name}`}</h2>
+      <div class="grid cards-3">{others.map((entry) => <ArticleCard entry={entry} />)}</div>
+    </section>
+  )}
+</BaseLayout>
